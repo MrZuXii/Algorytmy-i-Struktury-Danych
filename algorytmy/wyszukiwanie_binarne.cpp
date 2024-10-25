@@ -1,23 +1,27 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-int binary_search(int arr[],int n, int x) {
-    int lewo = 0;
-    int prawo = tablica.length - 1;
+int binarySearch(vector<int> items, int x) {
+    const int n = size(items);
+    int left = 0, right = n - 1, mid;
 
+    while (left <= right) {
+        mid = (right + left) / 2;
+        if (items[mid] == x)
+            return mid;
+        else if (items[mid] > x)
+            right = mid - 1;
+        else
+            left = mid + 1;
+    }
+    return -1;
 }
 
 int main() {
-    int arr[] = {
-    23, 47, 85, 12, 56, 92, 18, 67, 34, 5,
-    79, 3, 94, 16, 71, 28, 45, 88, 62, 11,
-    54, 39, 87, 33, 8, 27, 4, 70, 77, 60,
-    22, 98, 74, 90, 25, 10, 19, 64, 83, 7,
-    36, 42, 99, 50, 68, 41, 35, 2, 57, 80,
-    29, 75, 91, 1, 20, 38, 72, 61, 15, 69,
-    6, 81, 30, 49, 17, 44, 76, 100, 13, 14,
-    59, 93, 84, 37, 9, 24, 65, 48, 66, 88
-};
-
+    vector<int> items = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+    cout << "binarySearch(items, 14) → " << binarySearch(items, 14) << endl;
+    cout << "binarySearch(items, 5) → " << binarySearch(items, 5) << endl;
+    return 0;
 }
