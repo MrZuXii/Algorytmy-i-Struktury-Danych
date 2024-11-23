@@ -1,0 +1,47 @@
+
+Kolejka FIFO
+
+
+Zadanie 2:
+
+Dla kolejki fifo na koncepcji jednokierunkowej listy wiązanej (reprezentacja oparta na wskaźnikach) proszę zaimplementować wskazane w szablonie operacje. Proszę przetestować poprawność ich działania – testy powinny być opracowane w taki sposób, aby weryfikowały działanie operacji we wszystkich możliwych do zaistnienia przypadkach. Testy powinny być zaprezentowane w sposób czytelny i jednoznaczny.
+
+
+Szablon rozwiązania:
+
+//Zadanie 2
+class Element{
+    private:
+        int v;
+        Element* next;
+    public:
+        Element(int x, Element* next);
+        int getValue();
+        Element* getNext();
+        void setNext(Element* p);
+};
+
+class LinkedFifo{
+    private:
+        Element* head;
+        Element* tail;
+    public:
+        LinkedFifo();     //tworzy pustą kolejkę
+        bool empty();
+        void enqueue(int x);   //dodaje daną do kolejki
+        int peek();                //zwraca daną z kolejki
+        void dequeue();            //usuwa daną z kolejki
+        void clear();               //usuwa wszystkie elementy z kolejki 
+        friend std::ostream& operator<<(std::ostream& out, LinkedFifo* f);    //wyświetla zawartość kolejki (od head do tail)
+        ~LinkedFifo();
+};
+
+main():
+
+//Zadanie 2 - test
+cout<<endl<<"Zadanie 2 - test"<<endl;
+LinkedFifo* f = new LinkedFifo();
+cout<<endl<<"empty(): 1 - "<<f->empty();
+cout<<endl<<"enqueue(4): 4 - "; f->enqueue(4); cout<<" "<<f;
+//...
+

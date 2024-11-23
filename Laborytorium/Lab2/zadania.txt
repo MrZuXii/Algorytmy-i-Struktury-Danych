@@ -1,0 +1,141 @@
+Stos
+
+
+
+
+Zadanie 1:
+
+Dla stosu reprezentowanego w oparciu o tablicę proszę zaimplementować wskazane w szablonie operacje. Proszę przetestować poprawność ich działania – testy powinny być opracowane w taki sposób, aby weryfikowały działanie operacji we wszystkich możliwych do zaistnienia przypadkach. Testy powinny być zaprezentowane w sposób czytelny i jednoznaczny.
+
+Szablon rozwiązania:
+
+//Zadanie 1
+class ArrayStack{
+    private:
+        int* items;
+        int capacity;        //pojemność stosu
+        int top;                //wierzchołek stosu
+    public:
+        ArrayStack(int c);    //tworzy pusty stos o pojemności c
+        bool empty();
+        bool full();
+        void push(int x);   //wstawia daną na stos
+        int peek();            //zwraca daną ze stosu
+        void pop();            //usuwa daną ze stosu
+        void clear();       //usuwa wszystkie elementy ze stosu
+        friend std::ostream& operator<<(std::ostream& out, ArrayStack& s);    //wyświetla całą zawartość stosu
+        ~ArrayStack();
+};
+main():
+
+//Zadanie 1 - test
+cout<<endl<<"Zadanie 1 - test"<<endl;
+ArrayStack s(6);
+cout<<endl<<"empty(): 1 - "<<s.empty();
+cout<<endl<<"push(4): 4- "; s.push(4); cout<<" "<<s;
+//...
+
+
+Zadanie 2:
+
+Dla stosu opartego na koncepcji jednokierunkowej listy wiązanej (reprezentacja oparta na wskaźnikach) proszę zaimplementować wskazane w szablonie operacje. Proszę przetestować poprawność ich działania – testy powinny być opracowane w taki sposób, aby weryfikowały działanie operacji we wszystkich możliwych do zaistnienia przypadkach. Testy powinny być zaprezentowane w sposób czytelny i jednoznaczny.
+
+Szablon rozwiązania:
+
+//Zadanie 2
+class Element{
+    private:
+        int v;
+        Element* next;
+    public:
+        Element(int x, Element* next);
+        int getValue();
+        Element* getNext();
+        void setNext(Element* p);
+};
+
+class LinkedStack{
+    private:
+        Element* top;
+    public:
+        LinkedStack();        //tworzy pusty stos
+        bool empty();
+        void push(int x);  //wstawia daną na stos
+        int peek();            //zwraca daną ze stosu
+        void pop();            //usuwa element ze stosu
+        void clear();       //usuwa wszystkie elementy ze stosu
+        friend std::ostream& operator<<(std::ostream& out, LinkedStack* s); //wyświetla zawartość całego stosu
+        ~LinkedStack();
+};
+main():
+
+//Zadanie 2 - test
+
+cout<<endl<<"Zadanie 2 - test"<<endl;
+LinkedStack* s = new LinkedStack();
+cout<<endl<<"empty(): 1 - "<<s->empty();
+cout<<endl<<"push(4): 4- "; s->push(4); cout<<" "<<s;
+//...
+
+///////////////////////////////////////////////////////////////////
+
+Lista: - lista wiązana
+
+Zadanie 1:
+Dla dwukierunkowej listy wiązanej (reprezentacja oparta na wskaźnikach) proszę zaimplementować wskazane w szablonie operacje. Proszę przetestować poprawność ich działania – testy powinny być opracowane w taki sposób, aby weryfikowały działanie operacji we wszystkich możliwych do zaistnienia przypadkach. Testy powinny być zaprezentowane w sposób czytelny i jednoznaczny.
+
+Szablon rozwiązania:
+
+//Zadanie 1
+class Element{
+    private:
+        int v;
+        Element* next;
+        Element* prev;
+    
+    public:
+        Element();                                        //tworzy pusty element
+        Element(int x, Element* next, Element* prev);    //tworzy element przechowujący x
+        int getValue();                                    //zwraca wartość
+        void setValue(int v);                            //ustawia warość v
+        Element* getNext();                                //zwraca ozycję następnego elementu
+        Element* getPrev();                                //zwraca pozycję poprzedniego elementu
+        void setNext(Element* p);                        //ustawia p jako następny element
+        void setPrev(Element* p);                        //ustawia p jako poprzedni element
+};
+
+
+class LinkedList{
+    private:
+        Element* head;                    //pozycja pierwszego elementu
+        Element* tail;                    //pozycja ostatniego elementu
+        int size;
+    
+    public:
+        LinkedList();                                //tworzy pustą listę
+        bool empty();                                //zwraca prawdę jeśli lista pusta, fałsz w przeciwnym przypadku
+        int getSize();                                //zwraca wielkość listy (liczbę elementów w liście)
+      //  Element* getFirst();                         //zwraca pozycję (wskaźnik do) pierwszego elementu listy
+      //  Element* getLast();                               //zwraca pozycję (wskaźnik do) ostatniego elementu listy
+      //  Element* getNext(Element *p);               //zwraca pozycję (wskaźnik do) następniego elementu listy
+      //  Element* getPrev(Element *p);              //zwraca pozycję (wskaźnik do) poprzedniego elementu listy
+     //   int retrive(Element* p);                   //zwraca element (wartość) z pozycji (wskazywanej przez) p
+        void append(int x);                            //wstawia element z x na końcu listy
+        void preppend(int x);                            //wstawia element z x na początku listy
+        void clear();                    //usuwa całą listę
+        friend ostream& operator<<(ostream& out, LinkedList* l); //wypisuje elementu listy           
+        ~LinkedList();
+};
+
+main():
+
+//Zadanie 1 - test
+cout<<endl<<"Zadanie 1 - test"<<endl;
+{
+LinkedList* a = new LinkedList();
+cout<<endl<<"empty(): 1 - "<<a->empty();
+cout<<endl<<"getSize():  0 - "<<a->getSize();
+cout<<endl<<"append(4): 4 - "; a->append(4); cout<<" "<<a;     
+//...
+}
+
