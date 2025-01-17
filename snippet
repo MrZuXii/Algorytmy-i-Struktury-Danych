@@ -1,0 +1,622 @@
+{
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Kopiec
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	"Get Left Function": {
+	  "prefix": "secretme_kopiec_getLeft",
+	  "body": [
+		"int getLeft(int i) {",
+		"  if ((2 * i + 1) < size)",
+		"    return (2 * i) + 1;",
+		"  return -1;",
+		"};"
+	  ],
+	  "description": "Funkcja getLeft do pobierania lewego dziecka w kopcu"
+	},
+	"Get Right Function": {
+	  "prefix": "secretme_kopiec_getRight",
+	  "body": [
+		"int getRight(int i) {",
+		"  if (2 * i + 2 < size)",
+		"    return (2 * i) + 2;",
+		"  return -1;",
+		"};"
+	  ],
+	  "description": "Funkcja getRight do pobierania prawego dziecka w kopcu"
+	},
+	"Get Parent Function": {
+	  "prefix": "secretme_kopiec_getParent",
+	  "body": [
+		"int getParent(int i) {",
+		"  if (i == 0)",
+		"    return -1;",
+		"  else",
+		"    return (i - 1) / 2;",
+		"};"
+	  ],
+	  "description": "Funkcja getParent do pobierania rodzica w kopcu"
+	},
+	"Bottom Up Function": {
+	  "prefix": "secretme_kopiec_bottomUp",
+	  "body": [
+		"void bottomUp(int i) {",
+		"  if (i > 0) {",
+		"    int p = getParent(i);",
+		"    if (kopiec[i] > kopiec[p]) {",
+		"      swap(kopiec[i], kopiec[p]);",
+		"      bottomUp(p);",
+		"    }",
+		"  }",
+		"};"
+	  ],
+	  "description": "Funkcja bottomUp do przywracania własności kopca metodą wynurzania"
+	},
+	"Top Down Function": {
+	  "prefix": "secretme_kopiec_topDown",
+	  "body": [
+		"void topDown(int i) {",
+		"  int left = getLeft(i);",
+		"  int right = getRight(i);",
+		"",
+		"  int greatest = i;",
+		"",
+		"  if (left != -1 && kopiec[left] > kopiec[i])",
+		"    greatest = left;",
+		"  if (right != -1 && kopiec[right] > kopiec[greatest])",
+		"    greatest = right;",
+		"",
+		"  if (greatest != i) {",
+		"    swap(kopiec[i], kopiec[greatest]);",
+		"    topDown(greatest);",
+		"  }",
+		"};"
+	  ],
+	  "description": "Funkcja topDown do przywracania własności kopca metodą zatapiania"
+	},
+	"Insert Function": {
+	  "prefix": "secretme_kopiec_insert",
+	  "body": [
+		"void insert(int x) {",
+		"  if (full()) {",
+		"    cout << \"Error: Kopiec pełny\";",
+		"    return;",
+		"  }",
+		"  kopiec[size] = x;",
+		"  bottomUp(size);",
+		"  size++;",
+		"};"
+	  ],
+	  "description": "Funkcja insert do wstawiania elementu z wartością priorytetu"
+	},
+	"Delete Priority Function": {
+	  "prefix": "secretme_kopiec_deletePriority",
+	  "body": [
+		"void deleteP() {",
+		"  if (empty()) {",
+		"    cout << \"Error: Kopiec pusty\";",
+		"    return;",
+		"  }",
+		"  size--;",
+		"  swap(kopiec[0], kopiec[size]);",
+		"  topDown(0);",
+		"};"
+	  ],
+	  "description": "Funkcja deleteP do usuwania elementu z maksymalną wartością priorytetu"
+	},
+	"Delete Element Function": {
+	  "prefix": "secretme_kopiec_deleteElement",
+	  "body": [
+		"void del(int i) {",
+		"  if (empty()) {",
+		"    cout << \"Error: Kopiec pusty\";",
+		"    return;",
+		"  }",
+		"  size--;",
+		"  swap(kopiec[i], kopiec[size]);",
+		"  topDown(i);",
+		"  bottomUp(i);",
+		"};"
+	  ],
+	  "description": "Funkcja del do usuwania elementu na określonej pozycji"
+	},
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sortowanie
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	"Selection Sort": {
+	  "prefix": "secretme_sort_selectionSort",
+	  "body": [
+		"void selectionSort(int *S, int n) {",
+		"  for (int i = 0; i < n - 1; i++) {",
+		"    int min = i;",
+		"    for (int j = i + 1; j < n; j++) {",
+		"      if (S[min] > S[j])",
+		"        min = j;",
+		"    }",
+		"    swap(S[min], S[i]);",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja selectionSort do sortowania przez wybieranie"
+	},
+	"Insertion Sort": {
+	  "prefix": "secretme_sort_insertionSort",
+	  "body": [
+		"void insertionSort(int *S, int n) {",
+		"  for (int i = 1; i < n; i++) {",
+		"    int aux = S[i];",
+		"    int j;",
+		"    for (j = i - 1; j >= 0; j--) {",
+		"      if (S[j] > aux)",
+		"        S[j + 1] = S[j];",
+		"      else",
+		"        break;",
+		"    }",
+		"    S[j + 1] = aux;",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja insertionSort do sortowania przez wstawianie"
+	},
+	"Bubble Sort": {
+	  "prefix": "secretme_sort_bubbleSort",
+	  "body": [
+		"void bubbleSort(int *S, int n) {",
+		"  for (int i = 1; i < n; i++) {",
+		"    bool zamiana = false;",
+		"    for (int j = n - 1; j >= i; j--) {",
+		"      if (S[j - 1] > S[j]) {",
+		"        swap(S[j - 1], S[j]);",
+		"        zamiana = true;",
+		"      }",
+		"    }",
+		"    if (!zamiana)",
+		"      break;",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja bubbleSort do sortowania przez zamianę"
+	},
+	"Split Function": {
+	  "prefix": "secretme_sort_split",
+	  "body": [
+		"int split(int *S, int left, int right) {",
+		"  int index = right;",
+		"  swap(S[index], S[right]);",
+		"  int pivot = S[right];",
+		"",
+		"  int i = left;",
+		"",
+		"  for (int j = left; j < right; j++) {",
+		"    if (S[j] < pivot) {",
+		"      swap(S[j], S[i]);",
+		"      i++;",
+		"    }",
+		"  }",
+		"  swap(S[i], S[right]);",
+		"  return i;",
+		"}"
+	  ],
+	  "description": "Funkcja split do podziału tablicy w sortowaniu szybkim"
+	},
+	"Quick Sort": {
+	  "prefix": "secretme_sort_quickSort",
+	  "body": [
+		"void quickSort(int *S, int left, int right) {",
+		"  if (right > left) {",
+		"    int pivotIndex = split(S, left, right);",
+		"    quickSort(S, left, pivotIndex - 1);",
+		"    quickSort(S, pivotIndex + 1, right);",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja quickSort do sortowania szybkiego"
+	},
+	"Merge Function": {
+	  "prefix": "secretme_sort_merge",
+	  "body": [
+		"void merge(int *items, int left, int mid, int right) {",
+		"  int aux[right - left + 1];",
+		"  int i = left;",
+		"  int j = mid + 1;",
+		"  int k = 0;",
+		"",
+		"  while (i <= mid && j <= right) {",
+		"    if (items[i] <= items[j]) {",
+		"      aux[k++] = items[i++];",
+		"    } else {",
+		"      aux[k++] = items[j++];",
+		"    }",
+		"  }",
+		"",
+		"  while (i <= mid) {",
+		"    aux[k++] = items[i++];",
+		"  }",
+		"",
+		"  while (j <= right) {",
+		"    aux[k++] = items[j++];",
+		"  }",
+		"",
+		"  for (k = 0; k < right - left + 1; k++) {",
+		"    items[left + k] = aux[k];",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja merge do scalania w sortowaniu przez scalanie"
+	},
+	"Merge Sort": {
+	  "prefix": "secretme_sort_mergeSort",
+	  "body": [
+		"void mergeSort(int *S, int left, int right) {",
+		"  if (right > left) {",
+		"    int mid = (left + right) / 2;",
+		"    mergeSort(S, left, mid);",
+		"    mergeSort(S, mid + 1, right);",
+		"    merge(S, left, mid, right);",
+		"  }",
+		"}"
+	  ],
+	  "description": "Funkcja mergeSort do sortowania przez scalanie"
+	},
+	"Counting Sort": {
+	  "prefix": "secretme_sort_cntSort",
+	  "body": [
+		"void cntSort(int *items, int n, int k) {",
+		"",
+		"  int *o_items = new int[n];",
+		"",
+		"  int *cnt = new int[k + 1]();",
+		"",
+		"  for (int i = 0; i < n; i++) {",
+		"    cnt[items[i]] = cnt[items[i]] + 1;",
+		"  }",
+		"",
+		"  for (int j = 1; j <= k; j++) {",
+		"    cnt[j] = cnt[j] + cnt[j - 1];",
+		"  }",
+		"",
+		"  for (int i = n - 1; i >= 0; i--) {",
+		"    o_items[cnt[items[i]] - 1] = items[i];",
+		"    cnt[items[i]] = cnt[items[i]] - 1;",
+		"  }",
+		"",
+		"  for (int i = 0; i < n; i++) {",
+		"    items[i] = o_items[i];",
+		"  }",
+		"",
+		"  delete[] o_items;",
+		"  delete[] cnt;",
+		"}"
+	  ],
+	  "description": "Funkcja cntSort do sortowania przez zliczanie"
+	},
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Hash
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+"secretme_hash_function": {
+  "prefix": "secretme_hash_hashFunction",
+  "body": [
+    "int hashFunction(string s) {",
+    "  int hash = 0;",
+    "  int prime = 31;",
+    "  int n = s.size();",
+    "",
+    "  for (int i = 0; i < n; i++) {",
+    "    hash = (hash * prime + s[i]) % capacity;",
+    "  }",
+    "  return hash;",
+    "};"
+  ],
+  "description": "Funkcja haszująca dla klucza s"
+},
+"secretme_hash_insert": {
+  "prefix": "secretme_hash_insert",
+  "body": [
+    "void insert(string d) {",
+    "  if (full()) {",
+    "    cout << \"Error: Tablica jest pełna\";",
+    "    return;",
+    "  }",
+    "",
+    "  int hash = hashFunction(d);",
+    "  int i = 0;",
+    "",
+    "  while (t[hash] != \"\" && t[hash] != \"FREE\" && i < capacity) {",
+    "    i++;",
+    "    hash = (hash + 1) % capacity;",
+    "  }",
+    "  t[hash] = d;",
+    "  size++;",
+    "};"
+  ],
+  "description": "Funkcja dodająca element do tablicy haszującej"
+},
+"secretme_hash_del": {
+  "prefix": "secretme_hash_del",
+  "body": [
+    "void del(string s) {",
+    "  if (empty()) {",
+    "    cout << \"Error: Tablica jest pusta\";",
+    "    return;",
+    "  }",
+    "  int hash = hashFunction(s);",
+    "  int i = 0;",
+    "",
+    "  while (t[hash] != s && i < capacity) {",
+    "    hash = (hash + 1) % capacity;",
+    "    i++;",
+    "  };",
+    "  if (i < capacity) {",
+    "    t[hash] = \"FREE\";",
+    "    size--;",
+    "  }",
+    "};"
+  ],
+  "description": "Funkcja usuwająca element z tablicy haszującej"
+},
+"secretme_hash_search": {
+  "prefix": "secretme_hash_search",
+  "body": [
+    "string search(string s) {",
+    "  if (empty()) {",
+    "    cout << \"Error: Tablica jest pusta\";",
+    "    return \"Error: Tablica jest pusta\";",
+    "  }",
+    "  int hash = hashFunction(s);",
+    "  int collision = 0;",
+    "",
+    "  while (t[hash] != s && collision < capacity) {",
+    "    hash = (hash + 1) % capacity;",
+    "    collision++;",
+    "  }",
+    "  if (collision < capacity) {",
+    "    return t[hash];",
+    "  }",
+    "  return \"Nie znaleziono\";",
+    "};"
+  ],
+  "description": "Funkcja wyszukująca element w tablicy haszującej"
+},
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Text
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+"secretme_text_naiveStringMatching": {
+  "prefix": "secretme_text_naiveStringMatching",
+  "body": [
+    "void naiveStringMatching(string T, string p) {",
+    "  int n = T.size();",
+    "  int m = p.size();",
+    "",
+    "  for (int s = 0; s <= n - m; s++) {",
+    "    int i = 0;",
+    "    while (i < m && T[s + i] == p[i]) {",
+    "      i++;",
+    "    }",
+    "    if (i == m)",
+    "      cout << s << \" \";",
+    "  }",
+    "}"
+  ],
+  "description": "Algorytm naiwnego dopasowania wzorca do tekstu"
+},
+"secretme_text_BoyerMoore": {
+  "prefix": "secretme_text_BoyerMoore",
+  "body": [
+    "void BoyerMoore(string T, string p) {",
+    "  int n = T.size();",
+    "  int m = p.size();",
+    "",
+    "  int *bc = new int[256];",
+    "",
+    "  for (int i = 0; i < 256; i++) {",
+    "    bc[i] = -1;",
+    "  }",
+    "",
+    "  for (int i = 0; i < m; i++) {",
+    "    bc[p[i]] = i;",
+    "  }",
+    "",
+    "  int s = 0;",
+    "",
+    "  while (s <= n - m) {",
+    "    int i = m - 1;",
+    "",
+    "    while (i >= 0 && T[s + i] == p[i]) {",
+    "      i--;",
+    "    }",
+    "",
+    "    if (i == -1) {",
+    "      cout << s << \" \";",
+    "      s++;",
+    "    } else {",
+    "      if (bc[T[s + i]] == -1)",
+    "        s = s + i + 1;",
+    "      else if (bc[T[s + i]] < i)",
+    "        s = s + i - bc[T[s + i]];",
+    "      else",
+    "        s++;",
+    "    }",
+    "  }",
+    "  delete[] bc;",
+    "}"
+  ],
+  "description": "Algorytm Boyera-Moore'a do dopasowania wzorca"
+},
+"secretme_text_hashValue": {
+  "prefix": "secretme_text_hashValue",
+  "body": [
+    "int hashValue(const string &str, int m) {",
+    "  int hash = 0;",
+    "  int base = 10;",
+    "",
+    "  for (int i = 0; i < m; i++) {",
+    "    hash += str[i] * pow(base, m - i - 1);",
+    "  }",
+    "",
+    "  return hash;",
+    "}"
+  ],
+  "description": "Funkcja obliczająca wartość haszującą dla ciągu znaków"
+},
+"secretme_text_rehash": {
+  "prefix": "secretme_text_rehash",
+  "body": [
+    "int rehash(int hs, char oldChar, char newChar, int m) {",
+    "  int base = 10;",
+    "  hs = (hs - oldChar * pow(base, m - 1)) * base + newChar;",
+    "  return hs;",
+    "}"
+  ],
+  "description": "Funkcja przeliczająca hasz podczas przesuwania okna"
+},
+"secretme_text_compare": {
+  "prefix": "secretme_text_compare",
+  "body": [
+    "bool compare(string T, int s, string p, int m) {",
+    "  for (int i = 0; i < m; i++) {",
+    "    if (T[s + i] != p[i])",
+    "      return false;",
+    "  }",
+    "  return true;",
+    "}"
+  ],
+  "description": "Funkcja porównująca ciągi znaków"
+},
+"secretme_text_KarpRabin": {
+  "prefix": "secretme_text_KarpRabin",
+  "body": [
+    "void KarpRabin(string T, string p) {",
+    "  int n = T.size();",
+    "  int m = p.size();",
+    "",
+    "  int hashp = hashValue(p, m);",
+    "  int hashT = hashValue(T, m);",
+    "",
+    "  for (int s = 0; s <= n - m; s++) {",
+    "    if (hashp == hashT) {",
+    "      bool match = compare(T, s, p, m);",
+    "      if (match) {",
+    "        cout << s << \" \";",
+    "      }",
+    "    }",
+    "",
+    "    if (s < n - m) {",
+    "      hashT = rehash(hashT, T[s], T[s + m], m);",
+    "    }",
+    "  }",
+    "}"
+  ],
+  "description": "Algorytm Karpa-Rabina do dopasowania wzorca"
+},
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Graph
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	"secretme_graf_dfs": {
+	  "prefix": "secretme_graf_dfs",
+	  "body": [
+		"void dfs(int s, int *visited) {",
+		"  visited[s] = true;",
+		"  cout << s << \" \";",
+		"  for (int i = 0; i < n; i++) {",
+		"    if (adjMatrix[s][i] == 1 && !visited[i]) {",
+		"      dfs(i, visited);",
+		"    }",
+		"  }",
+		"};"
+	  ],
+	  "description": "Funkcja DFS do przeszukiwania grafu"
+	},
+	"secretme_graf_bfs": {
+	  "prefix": "secretme_graf_bfs",
+	  "body": [
+		"void bfs(int s) {",
+		"  int *visited = new int[n]();",
+		"  int *parent = new int[n];",
+		"  for (int i = 0; i < n; i++)",
+		"    parent[i] = -1;",
+		"  queue<int> q;",
+		"  visited[s] = true;",
+		"  q.push(s);",
+		"  while (!q.empty()) {",
+		"    int u = q.front();",
+		"    cout << u << \" \";",
+		"    q.pop();",
+		"    for (int i = 0; i < n; i++) {",
+		"      if (adjMatrix[u][i] == 1 && !visited[i]) {",
+		"        visited[i] = true;",
+		"        parent[i] = u;",
+		"        q.push(i);",
+		"      }",
+		"    }",
+		"  }",
+		"  cout << endl;",
+		"  delete[] visited;",
+		"  delete[] parent;",
+		"};"
+	  ],
+	  "description": "Funkcja BFS do przeszukiwania grafu"
+	},
+	"secretme_graf_find": {
+	  "prefix": "secretme_graf_find",
+	  "body": [
+		"int find(double *d, bool *S, int n) {",
+		"  int minIndex = -1;",
+		"  double minValue = numeric_limits<double>::infinity();",
+		"  for (int i = 0; i < n; i++) {",
+		"    if (!S[i] && d[i] < minValue) {",
+		"      minValue = d[i];",
+		"      minIndex = i;",
+		"    }",
+		"  }",
+		"  return minIndex;",
+		"}"
+	  ],
+	  "description": "Funkcja find dla Dijkstry"
+	},
+	"secretme_graf_dijkstra": {
+	  "prefix": "secretme_graf_dijkstra",
+	  "body": [
+		"void dijkstra(int s) {",
+		"  bool *S = new bool[n];",
+		"  double *d = new double[n];",
+		"  int *parent = new int[n];",
+		"  for (int i = 0; i < n; i++) {",
+		"    d[i] = numeric_limits<double>::infinity();",
+		"    S[i] = false;",
+		"    parent[i] = -1;",
+		"  }",
+		"  d[s] = 0;",
+		"  for (int i = 0; i < n; i++) {",
+		"    int u = find(d, S, n);",
+		"    S[u] = true;",
+		"    for (int j = 0; j < n; j++) {",
+		"      if (d[j] > d[u] + adjWeightMatrix[u][j]) {",
+		"        d[j] = d[u] + adjWeightMatrix[u][j];",
+		"        parent[j] = u;",
+		"      }",
+		"    }",
+		"  }",
+		"  cout << \"Odległości od wierzchołka \" << s << \":\\n\";",
+		"  for (int i = 0; i < n; i++) {",
+		"    if (d[i] == numeric_limits<double>::infinity()) {",
+		"      cout << \"Do wierzchołka \" << i << \": brak połączenia\\n\";",
+		"    } else {",
+		"      cout << \"Do wierzchołka \" << i << \": \" << d[i];",
+		"      if (parent[i] != -1) {",
+		"        cout << \" (poprzednik: \" << parent[i] << \")\";",
+		"      }",
+		"      cout << endl;",
+		"    }",
+		"  }",
+		"  delete[] S;",
+		"  delete[] d;",
+		"  delete[] parent;",
+		"}"
+	  ],
+	  "description": "Algorytm Dijkstry"
+	}
+  }
+  
+  
